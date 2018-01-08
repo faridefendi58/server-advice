@@ -5,18 +5,8 @@ $app->get('/panel-admin', function ($request, $response, $args) use ($user) {
         return $response->withRedirect('/panel-admin/default/login');
     }
 
-    $vmodel = new \Model\VisitorModel();
-    $params = [];
-    if (isset($_GET['start']) || isset($_GET['end'])) {
-        $params = [
-            'date_from' => date("Y-m-d", $_GET['start'] / 1000),
-            'date_to' => date("Y-m-d", $_GET['end'] / 1000),
-        ];
-    }
-
 	return $this->module->render($response, 'default/index.html', [
         'name' => $args['name'],
-        'vmodel' => $vmodel,
         'params' => $params
     ]);
 });
