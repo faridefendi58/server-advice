@@ -6,60 +6,6 @@
     $('#loader').fadeOut();
    });
 
-
-/* ==========================================================================
-   CounterUp
-   ========================================================================== */
-  jQuery(document).ready(function( $ ) {
-    $('.counter').counterUp({
-      delay: 1,
-      time: 500
-    });
-  });
-
-/* ==========================================================================
-   MixitUp
-   ========================================================================== */
-  $(function(){
-    $('#portfolio').mixItUp();
-  });
-
-/* ==========================================================================
-   Carousel Main Slider
-   ========================================================================== */
-$(".carousel-slider").owlCarousel({
-    navigation: true,
-    pagination: false,
-    slideSpeed: 1000,
-    stopOnHover: true,
-    autoPlay: true,
-    items: 1,
-    itemsDesktopSmall: [1024, 1],
-    itemsTablet: [600, 1],
-    itemsMobile: [479, 1]
-});
-
-/* ==========================================================================
-   Touch Owl Carousel
-   ========================================================================== */
-$(".touch-slider").owlCarousel({
-    navigation: true,
-    pagination: false,
-    slideSpeed: 1000,
-    stopOnHover: true,
-    autoPlay: true,
-    items: 1,
-    itemsDesktopSmall: [1024, 1],
-    itemsTablet: [600, 1],
-    itemsMobile: [479, 1]
-});
-
-$('.touch-slider').find('.owl-prev').html('<i class="icon-arrow-left"></i>');
-$('.touch-slider').find('.owl-next').html('<i class="icon-arrow-right"></i>');
-
-$('.carousel-slider').find('.owl-prev').html('<i class="icon-arrow-left"></i>');
-$('.carousel-slider').find('.owl-next').html('<i class="icon-arrow-right"></i>');
-
 $(window).on('scroll', function() {
     if ($(window).scrollTop() > 20) {
         $('.header-top-area').addClass('menu-bg');
@@ -89,9 +35,6 @@ $(window).on('scroll', function() {
   })
 
   jQuery(function($) {
-
-      //Initiat WOW JS
-      new WOW().init();
 
       // one page navigation 
       $('.main-navigation').onePageNav({
