@@ -29,3 +29,22 @@ $app->get('/[{name}]', function ($request, $response, $args) {
         'request' => $_GET
     ]);
 });
+
+$app->post('/rekomendasi', function ($request, $response, $args) {
+    $performa = \ExtensionsModel\BatasanPerformaModel::model()->findByPk( $_POST['batasan_performa'] );
+    $biaya = \ExtensionsModel\BiayaModel::model()->findByPk( $_POST['biaya_per_bulan'] );
+    $keahlian = \ExtensionsModel\KeahlianUserModel::model()->findByPk( $_POST['keahlian_user'] );
+    $pengunjung = \ExtensionsModel\KeahlianUserModel::model()->findByPk( $_POST['jumlah_pengunjung'] );
+
+    $transformasi_data = \ExtensionsModel\TransformasiDataModel::model()->findAll();
+    $bobot = \ExtensionsModel\BobotModel::model()->findAll();
+
+    return $this->view->render($response, 'rekomendasi.phtml', [
+        'performa' => $performa,
+        'biaya' => $biaya,
+        'keahlian' => $keahlian,
+        'pengunjung' => $pengunjung,
+        'transformasi_data' => $transformasi_data,
+        'bobot' => $bobot
+    ]);
+});
