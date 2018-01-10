@@ -14,9 +14,6 @@ foreach (glob(__DIR__.'/../components/*.php') as $component) {
     }
 }
 
-$app->group('/server-recomendation', function () use ($client) {
-    new Extensions\Controllers\BatasanPerformaController($this, $client);
-});
 $app->group('/server-recomendation', function () use ($user) {
     $this->group('/batasan-performa', function() use ($user) {
         new Extensions\Controllers\BatasanPerformaController($this, $user);

@@ -63,6 +63,23 @@ class ServerrecomendationService
           PRIMARY KEY (`id`)
         ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;";
 
+        $sql .= "CREATE TABLE IF NOT EXISTS `{tablePrefix}bobot` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `kriteria` varchar(64) NOT NULL,
+          `nilai` float NOT NULL DEFAULT '0',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;";
+
+        $sql .= "CREATE TABLE IF NOT EXISTS `{tablePrefix}transformasi_data` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `jenis_server` varchar(64) NOT NULL,
+          `performa_batasan` float DEFAULT '0',
+          `pengunjung` float DEFAULT '0',
+          `keahlian_user` float DEFAULT '0',
+          `biaya` float DEFAULT '0',
+          PRIMARY KEY (`id`)
+        ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;";
+
         $sql .= "INSERT INTO `{tablePrefix}batasan_performa` (`id`, `kriteria`, `nilai_minimal`, `nilai_maksimal`) VALUES
         (1, 'Terbatas', 0, 0.1),
         (2, 'Sedang', 0.2, 0.3),
@@ -83,7 +100,17 @@ class ServerrecomendationService
         (1, 'Web Profile', 1, 1, 1, 1),
         (2, 'Toko Online', 2, 2, 2, 2),
         (3, 'News Portal', 3, 2, 3, 2),
-        (4, 'Forum', 3, 3, 3, 3);";
+        (4, 'Forum', 3, 3, 3, 3);
+        INSERT INTO `{tablePrefix}bobot` (`id`, `kriteria`, `nilai`) VALUES
+        (1, 'Performa Batasan', 0.24),
+        (2, 'Pengunjung', 0.29),
+        (3, 'Keahlian User', 0.12),
+        (4, 'Biaya/Bulan', 0.35);
+        INSERT INTO `{tablePrefix}transformasi_data` (`id`, `jenis_server`, `performa_batasan`, `pengunjung`, `keahlian_user`, `biaya`) VALUES
+        (1, 'Shared Hosting', 0.1, 0.3, 0.2, 0.2),
+        (2, 'VPS', 0.3, 0.5, 0.5, 0.5),
+        (3, 'Cloud Hosting', 0.7, 0.8, 0.8, 0.8),
+        (4, 'Dedicated Server', 0.9, 0.9, 0.9, 0.9);";
 
         $sql = str_replace(['{tablePrefix}'], [$this->tablePrefix], $sql);
         
