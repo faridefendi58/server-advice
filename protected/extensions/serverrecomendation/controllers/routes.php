@@ -15,11 +15,11 @@ foreach (glob(__DIR__.'/../components/*.php') as $component) {
 }
 
 $app->group('/server-recomendation', function () use ($user) {
-    $this->group('/batasan-performa', function() use ($user) {
-        new Extensions\Controllers\BatasanPerformaController($this, $user);
+    $this->group('/default', function() use ($user) {
+        new Extensions\Controllers\DefaultController($this, $user);
     });
-    $this->group('/biaya', function() use ($user) {
-        new Extensions\Controllers\BiayaController($this, $user);
+    $this->group('/manage', function() use ($user) {
+        new Extensions\Controllers\ManageController($this, $user);
     });
 });
 

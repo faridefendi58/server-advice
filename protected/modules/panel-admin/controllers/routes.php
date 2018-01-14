@@ -5,10 +5,11 @@ $app->get('/panel-admin', function ($request, $response, $args) use ($user) {
         return $response->withRedirect('/panel-admin/default/login');
     }
 
-	return $this->module->render($response, 'default/index.html', [
+    return $response->withRedirect('/server-recomendation/default/view');
+	/*return $this->module->render($response, 'default/index.html', [
         'name' => $args['name'],
         'params' => $params
-    ]);
+    ]);*/
 });
 
 foreach (glob(__DIR__.'/*_controller.php') as $controller) {
