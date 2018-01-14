@@ -132,7 +132,7 @@ class ServerrecomendationService
     public function getMenu()
     {
         return [
-            [ 'label' => 'Kelola Perhitungan Fuzzy', 'url' => 'server-recomendation/view', 'icon' => 'fa fa-search' ]
+            [ 'label' => 'Kelola Perhitungan Fuzzy', 'url' => 'server-recomendation/default/view', 'icon' => 'fa fa-search' ]
         ];
     }
 }
