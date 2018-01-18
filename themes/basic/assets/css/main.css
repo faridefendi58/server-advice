@@ -139,8 +139,7 @@ a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:#3
 .pricing-table .plan-list li:first-child{border-top:1px solid #eee}
 .pricing-table .plan-signup{padding:25px 0}
 .pricing-table .plan-signup a{text-transform:uppercase}
-.form-control{width:100%;margin-bottom:20px;color:#fff;padding:18px;border:1px solid #757575;background-color:transparent;font-size:14px;border-radius:4x}
-.form-control:focus{border-color:#fff;color:#fff;outline:0;background-color:transparent}
+.form-control{width:100%;margin-bottom:20px;color:#666;padding:12px;border:1px solid #757575;background-color:transparent;font-size:14px;border-radius:4x}
 #contact{background:#393f43}
 #contact .section-title{color:#fff;text-align:center;font-size:36px;margin:0 0 15px}
 #contact .subtitle{color:#fff;text-align:center}
