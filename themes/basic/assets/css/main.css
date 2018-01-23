@@ -225,6 +225,9 @@ footer .menu li a{color:#fff}
   25%,75%{-moz-transform:perspective(105px) rotateX(0);opacity:1}
   100%,90%{-moz-transform:perspective(105px) rotateY(180deg);opacity:0}
 }
+.font-size-18{font-size: 18px;}
+.font-size-20{font-size: 20px;}
+.font-size-22{font-size: 22px;}
 .font-size-24{font-size: 24px;}
 .font-size-26{font-size: 26px;}
 .font-size-28{font-size: 28px;}
