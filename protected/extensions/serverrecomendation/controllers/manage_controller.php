@@ -13,17 +13,14 @@ class ManageController extends BaseController
 
     public function register($app)
     {
-        $app->map(['GET'], '/performa/[{id}]', [$this, 'performa']);
-        $app->map(['GET'], '/biaya/[{id}]', [$this, 'biaya']);
-        $app->map(['GET'], '/keahlian/[{id}]', [$this, 'keahlian']);
-        $app->map(['GET'], '/pengunjung/[{id}]', [$this, 'pengunjung']);
+        $app->map(['GET', 'POST'], '/transformasi/[{id}]', [$this, 'transformasi']);
     }
 
     public function accessRules()
     {
         return [
             ['allow',
-                'actions' => ['performa', 'biaya', 'keahlian', 'pengunjung'],
+                'actions' => ['transformasi'],
                 'users'=> ['@'],
             ],
             ['deny',
@@ -32,7 +29,7 @@ class ManageController extends BaseController
         ];
     }
 
-    public function performa($request, $response, $args)
+    public function transformasi($request, $response, $args)
     {
         $isAllowed = $this->isAllowed($request, $response);
         if ($isAllowed instanceof \Slim\Http\Response)
@@ -42,63 +39,29 @@ class ManageController extends BaseController
             return $this->notAllowedAction();
         }
 
-        $model = \ExtensionsModel\BatasanPerformaModel::model()->findByPk($args['id']);
+        $model = \ExtensionsModel\TransformasiDataModel::model()->findByPk($args['id']);
 
-        return $this->_container->module->render($response, 'servers/performa.html', [
-            'model' => $model
-        ]);
-    }
+        if (isset($_POST['TransformasiData'])){
+            $model->jenis_server = $_POST['TransformasiData']['jenis_server'];
+            $model->performa_batasan = $_POST['TransformasiData']['performa_batasan'];
+            $model->pengunjung = $_POST['TransformasiData']['pengunjung'];
+            $model->keahlian_user = $_POST['TransformasiData']['keahlian_user'];
+            $model->biaya = $_POST['TransformasiData']['biaya'];
 
-    public function biaya($request, $response, $args)
-    {
-        $isAllowed = $this->isAllowed($request, $response);
-        if ($isAllowed instanceof \Slim\Http\Response)
-            return $isAllowed;
-
-        if(!$isAllowed){
-            return $this->notAllowedAction();
+            $update = \ExtensionsModel\TransformasiDataModel::model()->update($model);
+            if ($update) {
+                $message = 'Data Anda telah berhasil diubah.';
+                $success = true;
+            } else {
+                $message = \ExtensionsModel\TransformasiDataModel::model()->getErrors(false);
+                $success = false;
+            }
         }
 
-        $model = \ExtensionsModel\BiayaModel::model()->findByPk($args['id']);
-
-        return $this->_container->module->render($response, 'servers/biaya.html', [
-            'model' => $model
-        ]);
-    }
-
-    public function keahlian($request, $response, $args)
-    {
-        $isAllowed = $this->isAllowed($request, $response);
-        if ($isAllowed instanceof \Slim\Http\Response)
-            return $isAllowed;
-
-        if(!$isAllowed){
-            return $this->notAllowedAction();
-        }
-
-        $model = \ExtensionsModel\KeahlianUserModel::model()->findByPk($args['id']);
-
-        return $this->_container->module->render($response, 'servers/keahlian.html', [
-            'model' => $model
-        ]);
-    }
-
-
-
-    public function pengunjung($request, $response, $args)
-    {
-        $isAllowed = $this->isAllowed($request, $response);
-        if ($isAllowed instanceof \Slim\Http\Response)
-            return $isAllowed;
-
-        if(!$isAllowed){
-            return $this->notAllowedAction();
-        }
-
-        $model = \ExtensionsModel\PengunjungModel::model()->findByPk($args['id']);
-
-        return $this->_container->module->render($response, 'servers/pengunjung.html', [
-            'model' => $model
+        return $this->_container->module->render($response, 'servers/transformasi.html', [
+            'model' => $model,
+            'message' => ($message) ? $message : null,
+            'success' => ($success) ? $success : null
         ]);
     }
 }

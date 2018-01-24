@@ -46,7 +46,6 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 }
  */
 $app->post('/rekomendasi', function ($request, $response, $args) {
-    //$performa = \ExtensionsModel\BatasanPerformaModel::model()->findByPk( $_POST['batasan_performa'] );
     $performa = [
         'nilai_maksimal' => $_POST['batasan_performa']/10
     ];
@@ -57,7 +56,7 @@ $app->post('/rekomendasi', function ($request, $response, $args) {
     } else {
         $performa['kriteria'] = 'Tidak terbatas';
     }
-    //$biaya = \ExtensionsModel\BiayaModel::model()->findByPk( $_POST['biaya_per_bulan'] );
+
     if ((int)$_POST['biaya_per_bulan'] <= 100000) {
         $biaya = [
             'kriteria' => '<= 100.000',
@@ -84,7 +83,6 @@ $app->post('/rekomendasi', function ($request, $response, $args) {
         ];
     }
 
-    //$keahlian = \ExtensionsModel\KeahlianUserModel::model()->findByPk( $_POST['keahlian_user'] );
     $keahlian = [ 'nilai_minimal' => $_POST['keahlian_user']/10 ];
     if ($_POST['keahlian_user'] <= 4) {
         $keahlian['kriteria'] = 'Pemula';
@@ -96,8 +94,7 @@ $app->post('/rekomendasi', function ($request, $response, $args) {
         $keahlian['kriteria'] = 'Tinggi';
         $keahlian['bil_fuzzy'] = 'Tinggi';
     }
-    
-    //$pengunjung = \ExtensionsModel\PengunjungModel::model()->findByPk( $_POST['jumlah_pengunjung'] );
+
     if ((int)$_POST['jumlah_pengunjung'] <= 1000) {
         $pengunjung = [
             'kriteria' => '< 1.000',

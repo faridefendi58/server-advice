@@ -1,0 +1,252 @@
+{% extends "layout.html" %}
+{% block pagetitle %}
+Cari Server yang Tepat - {{ App.name }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ 'lib/ion.rangeSlider/css/ion.rangeSlider.css' | admin_asset_url }}">
+<div id="main_wrapper">
+    <div class="page_bar clearfix">
+        <div class="row">
+            <div class="col-sm-10">
+                <h1 class="page_title">Pengujian Fuzzy Logic Untuk Mencari Server yang Tepat</h1>
+                <p class="text-muted">Form pengujian</p>
+            </div>
+            <div class="col-sm-2 text-right">
+                <a class="btn btn-default" href="{{ 'server-recomendation/default/view' | link }}">Daftar Transformasi Data</a>
+            </div>
+        </div>
+    </div>
+    <div class="page_content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- start of transformasi data -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default mt10">
+                        <div class="panel-heading">
+                            Kolom bertanda <span class="red">*</span> tidak boleh dikosongi
+                        </div>
+                        <div class="panel-body">
+                            <form data-parsley-validate method="post" action="{{ 'server-recomendation/default/create' | link }}">
+                                <div id="wizard_form">
+                                    <h3>Data Kebutuhan</h3>
+                                    <section>
+                                        <div class="form-group">
+                                            <label class="req">Performa Server</label>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="batasan_performa" id="optionsRadios1" value="1" checked>
+                                                    Terbatas
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="batasan_performa" id="optionsRadios2" value="5">
+                                                    Sedang
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="batasan_performa" id="optionsRadios3" value="8">
+                                                    Tidak Terbatas
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="wizard_lname" class="req">Jumlah Pengunjung / hari</label>
+                                            <input type="text" class="form-control" id="wizard_lname" name="jumlah_pengunjung" data-parsley-required="true">
+                                            <span class="help-block">Masukkan jumlah pengunjung dalam format angka. Contoh : 1500</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="wizard_biaya" class="req">Biaya / bulan</label>
+                                            <input type="text" class="form-control" id="wizard_biaya" name="biaya_per_bulan" data-parsley-required="true">
+                                            <span class="help-block">Masukkan biaya per bulan dalam format angka. Contoh: 100000</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="req">Tingkat Keahlian Teknis</label>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="keahlian_user" id="optionsRadios1" value="1" checked>
+                                                    Tidak Ahli
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="keahlian_user" id="optionsRadios2" value="5">
+                                                    Sedang
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="keahlian_user" id="optionsRadios3" value="8">
+                                                    Ahli
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h3>Data Pertimbangan Kebutuhan</h3>
+                                    <section>
+                                        <div class="form-group">
+                                            <label>Performa Kebutuhan - Skala 1 -9</label>
+                                            <div class="col-lg-12">
+                                                <input id="range_slider_a" type="text" name="pertimbangan[batasan_performa]" value="1;9" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pengunjung / hari - Skala 1 -9</label>
+                                            <div class="col-lg-12">
+                                                <input id="range_slider_a" type="text" name="pertimbangan[pengunjung]" value="1;9" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Biaya / bulan - Skala 1 -9</label>
+                                            <div class="col-lg-12">
+                                                <input id="range_slider_a" type="text" name="pertimbangan[biaya]" value="1;9" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tingkat keahlian teknis Anda - Skala 1 -9</label>
+                                            <div class="col-lg-12">
+                                                <input id="range_slider_a" type="text" name="pertimbangan[keahlian_teknis]" value="1;9" />
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of transformasi data -->
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'partial/right_menu.html' %}
+{% endblock %}
+{% block endbodyjs %}
+<script src="{{ 'lib/jquery-steps/build/jquery.steps.js' | admin_asset_url }}"></script>
+<script src="{{ 'lib/Parsley.js/dist/parsley.min.js' | admin_asset_url }}"></script>
+<script src="{{ 'lib/ion.rangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js' | admin_asset_url }}"></script>
+<script type="text/javascript">
+    $(function() {
+        // wizard
+        tisa_wizard.init();
+        // form validation
+        tisa_validate.listen_event();
+        tisa_slider.init();
+    });
+
+    // wizard
+    tisa_wizard = {
+        init: function() {
+            if ($("#wizard_101").length) {
+                // initialize wizard
+                $("#wizard_101").steps({
+                    headerTag: 'h3',
+                    bodyTag: "section",
+                    titleTemplate: "<span class=\"number\">#index#.</span><span class=\"title\">#title#</span>",
+                    enableAllSteps: true,
+                    enableFinishButton: false,
+                    transitionEffect: "fade",
+                    labels: {
+                        next: "Next <i class=\"fa fa-angle-right\"></i>",
+                        previous: "<i class=\"fa fa-angle-left\"></i> Previous",
+                        current: "",
+                        finish: "Agree"
+                    },
+                    onStepChanged: function (event, currentIndex, priorIndex) {
+                        // adjust wizard height
+                        tisa_wizard.setContentHeight('#wizard_101')
+                    }
+                });
+                // set initial wizard height
+                tisa_wizard.setContentHeight('#wizard_101');
+            }
+            if ($("#wizard_form").length) {
+                var wizard_form = $('#wizard_form');
+                // initialize wizard
+                wizard_form.steps({
+                    headerTag: 'h3',
+                    bodyTag: "section",
+                    enableAllSteps: true,
+                    titleTemplate: "<span class=\"number\">#index#.</span><span class=\"title\">#title#</span>",
+                    transitionEffect: "slideLeft",
+                    labels: {
+                        next: "Next Step <i class=\"fa fa-angle-right\"></i>",
+                        previous: "<i class=\"fa fa-angle-left\"></i> Previous Step",
+                        current: "",
+                        finish: "<i class=\"fa fa-check\"></i> Kirim Sekarang"
+                    },
+                    onStepChanging: function (event, currentIndex, newIndex) {
+                        var cursentStep = wizard_form.find('.content > .body').eq(currentIndex);
+                        // check input fields for errors
+                        cursentStep.find('[data-parsley-id]').each(function() {
+                            $(this).parsley().validate();
+                        });
+
+                        // adjust wizard height
+                        tisa_wizard.setContentHeight('#wizard_form');
+
+                        if(cursentStep.find('.parsley-error').length) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onStepChanged: function (event, currentIndex, priorIndex) {
+                        thisIndex = currentIndex;
+                        // adjust wizard height
+                        tisa_wizard.setContentHeight('#wizard_form');
+                    },
+                    onFinishing: function (event, currentIndex) {
+                        var cursentStep = wizard_form.find('.content > .body').eq(currentIndex);
+                        // check input fields for errors
+                        cursentStep.find('[data-parsley-id]').each(function() {
+                            $(this).parsley().validate();
+                        });
+
+                        // adjust wizard height
+                        tisa_wizard.setContentHeight('#wizard_form');
+
+                        if(cursentStep.find('.parsley-error').length) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    onFinished: function(event, currentIndex) {
+                        //* uncomment the following line to submit form
+                        wizard_form.parent().submit();
+                    }
+                });
+                // set initial wizard height
+                tisa_wizard.setContentHeight('#wizard_form');
+            }
+        },
+        setContentHeight: function($wizard) {
+            setTimeout(function() {
+                var cur_height = $($wizard).children('.content').children('.body.current').outerHeight();
+                $($wizard).find('.content').height(cur_height);
+            },0);
+        }
+    }
+
+    // form validation
+    tisa_validate = {
+        listen_event: function() {
+            var thisIndex = 0;
+            $.listen('parsley:field:validate', function(e) {
+                tisa_wizard.setContentHeight('#'+e.$element.closest('div.wizard').attr('id'));
+            });
+        }
+    }
+
+    tisa_slider = {
+        init: function() {
+            if($('input[id="range_slider_a"]').length) {
+                $('input[id="range_slider_a"]').ionRangeSlider();
+            }
+        }
+    }
+</script>
+{% endblock %}
