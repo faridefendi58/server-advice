@@ -12,225 +12,17 @@ Fuzzy Data - {{ App.name }}
                 <h1 class="page_title">Server Recomendation Data</h1>
                 <p class="text-muted">Daftar semua data terkait perhitungan fuzzy</p>
             </div>
+            <div class="col-sm-2 text-right">
+                <a class="btn btn-default" href="{{ 'server-recomendation/default/create' | link }}">Mulai Pengujian Baru</a>
+            </div>
         </div>
     </div>
     <div class="page_content">
         <div class="container-fluid">
             <div class="row">
-                <!-- start of batasan performa -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Batasan Performa</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kriteria</th>
-                                        <th>Nilai</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, performa in batasan_performa %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td>{{ performa.kriteria }}</td>
-                                        <td>
-                                            {% if performa.nilai_minimal < performa.nilai_maksimal %}
-                                                {{ performa.nilai_minimal }} - {{ performa.nilai_maksimal }}
-                                            {% else %}
-                                                {{ performa.nilai_maksimal }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <a href="{{ 'server-recomendation/manage/performa' | link }}/{{ i }}" title="Ubah data"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of batasan performa -->
-                <!-- start of biaya -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Biaya</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kriteria</th>
-                                        <th>Bil Fuzzy</th>
-                                        <th>Nilai</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, bia in biaya %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td>{{ bia.kriteria }}</td>
-                                        <td>{{ bia.bil_fuzzy }}</td>
-                                        <td>
-                                            {% if bia.nilai_minimal < bia.nilai_maksimal %}
-                                            {{ bia.nilai_minimal }} - {{ bia.nilai_maksimal }}
-                                            {% else %}
-                                            {{ bia.nilai_maksimal }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <a href="{{ 'server-recomendation/manage/biaya' | link }}/{{ i }}" title="Ubah data"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of biaya -->
-                <!-- start of keahlian user -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default mt30">
-                        <div class="panel-heading">Keahlian User</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kriteria</th>
-                                        <th>Bil Fuzzy</th>
-                                        <th>Nilai</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, keahlian in keahlian_user %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td>{{ keahlian.kriteria }}</td>
-                                        <td>{{ keahlian.bil_fuzzy }}</td>
-                                        <td>
-                                            {% if keahlian.nilai_minimal < keahlian.nilai_maksimal %}
-                                            {{ keahlian.nilai_minimal }} - {{ keahlian.nilai_maksimal }}
-                                            {% else %}
-                                            {{ keahlian.nilai_maksimal }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <a href="{{ 'server-recomendation/manage/keahlian' | link }}/{{ i }}" title="Ubah data"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- endof keahlian user -->
-                <!-- start of pengunjung section -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default mt30">
-                        <div class="panel-heading">Pengunjung</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kriteria</th>
-                                        <th>Bil Fuzzy</th>
-                                        <th>Nilai</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, visitor in pengunjung %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td>{{ visitor.kriteria }}</td>
-                                        <td>{{ visitor.bil_fuzzy }}</td>
-                                        <td>
-                                            {% if visitor.nilai_minimal < visitor.nilai_maksimal %}
-                                            {{ visitor.nilai_minimal }} - {{ visitor.nilai_maksimal }}
-                                            {% else %}
-                                            {{ visitor.nilai_maksimal }}
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <a href="{{ 'server-recomendation/manage/pengunjung' | link }}/{{ i }}" title="Ubah data"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of pengunjung section -->
-                <!-- start of bobot -->
-                <div class="col-lg-5">
-                    <div class="panel panel-default mt30">
-                        <div class="panel-heading">Bobot</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kriteria</th>
-                                        <th>Nilai</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, bbt in bobot %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td>{{ bbt.kriteria }}</td>
-                                        <td>{{ bbt.nilai }}</td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of bobot -->
                 <!-- start of transformasi data -->
-                <div class="col-lg-7">
-                    <div class="panel panel-default mt30">
+                <div class="col-lg-12">
+                    <div class="panel panel-default mt20">
                         <div class="panel-heading">Transformasi Data</div>
                         <div class="panel-body">
                             <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
@@ -243,6 +35,7 @@ Fuzzy Data - {{ App.name }}
                                         <th>Pengunjung</th>
                                         <th>Keahlian User</th>
                                         <th>Biaya</th>
+                                        <th>&nbsp;</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -254,6 +47,11 @@ Fuzzy Data - {{ App.name }}
                                         <td>{{ transformasi.pengunjung }}</td>
                                         <td>{{ transformasi.keahlian_user }}</td>
                                         <td>{{ transformasi.biaya }}</td>
+                                        <td>
+                                            <a href="{{ 'server-recomendation/manage/transformasi' | link }}/{{ transformasi.id }}" title="Ubah">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     {% else %}
                                     <tr>
@@ -267,45 +65,6 @@ Fuzzy Data - {{ App.name }}
                     </div>
                 </div>
                 <!-- end of transformasi data -->
-                <!-- start of tabulasi wpm -->
-                <div class="col-lg-12">
-                    <div class="panel panel-default mt30">
-                        <div class="panel-heading">Tabulasi WPM</div>
-                        <div class="panel-body">
-                            <div id="dt_basic_wrapper" class="dataTables_wrapper form-inline no-footer table-responsive" role="grid">
-                                <table id="dt_basic" class="table table-striped dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Kebutuhan Ideal</th>
-                                        <th>Performa Batasan</th>
-                                        <th>Pengunjung</th>
-                                        <th>Keahlian User</th>
-                                        <th>Biaya</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for i, tabulasi in tabulasi_wpm %}
-                                    <tr>
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ tabulasi.kebutuhan_ideal }}</td>
-                                        <td>{{ tabulasi.performa_kriteria }}</td>
-                                        <td>{{ tabulasi.pengunjung_kriteria }}</td>
-                                        <td>{{ tabulasi.keahlian_user_kriteria }}</td>
-                                        <td>{{ tabulasi.biaya_kriteria }}</td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td>No data founds</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- and of tabulasi wpm -->
             </div>
         </div>
     </div>
