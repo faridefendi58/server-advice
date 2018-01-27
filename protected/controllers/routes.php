@@ -150,12 +150,34 @@ $app->post('/rekomendasi', function ($request, $response, $args) {
         ];
     }
 
+    try {
+        // create the logs
+        $model = new \ExtensionsModel\RecomendationResultsModel();
+        $model->ip_address = $_SERVER['REMOTE_ADDR'];
+        $model->post_data = json_encode($_POST);
+        $model->created_at = date('Y-m-d H:i:s');
+        $model->updated_at = date('Y-m-d H:i:s');
+        $result = \ExtensionsModel\RecomendationResultsModel::model()->findByAttributes(['ip_address'=>$_SERVER['REMOTE_ADDR']]);
+        if ($result instanceof \RedBeanPHP\OODBBean){
+            if (time() - strtotime($result->updated_at) > 3600) {
+                $result->post_data = json_encode($_POST);
+                $result->updated_at = date('Y-m-d H:i:s');
+                $result_id = \ExtensionsModel\RecomendationResultsModel::model()->update( $result );
+            }
+        } else {
+            $result_id = \ExtensionsModel\RecomendationResultsModel::model()->save( $model );
+        }
+    } catch (\Exception $e) {
+        //$erros = \ExtensionsModel\RecomendationResultsModel::model()->getErrors(false);
+    }
+
     return $this->view->render($response, 'rekomendasi.phtml', [
         'performa' => $performa,
         'biaya' => $biaya,
         'keahlian' => $keahlian,
         'pengunjung' => $pengunjung,
         'transformasi_data' => $transformasi_data,
-        'bobot' => $bobot
+        'bobot' => $bobot,
+        'result_id' => $result_id
     ]);
 });
